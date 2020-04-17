@@ -6,22 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>CI学习记录 | anthusの学习屋</title>
+  <title>Tag: ssrf | anthusの学习屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="兄弟连 CodeIgniter学习笔记">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CI学习记录">
-<meta property="og:url" content="http://yoursite.com/2020/04/02/CI_study/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="anthusの学习屋">
+<meta property="og:url" content="http://yoursite.com/tags/ssrf/index.html">
 <meta property="og:site_name" content="anthusの学习屋">
-<meta property="og:description" content="兄弟连 CodeIgniter学习笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-02T08:22:18.000Z">
-<meta property="article:modified_time" content="2020-04-02T08:51:12.609Z">
 <meta property="article:author" content="lisianthus">
-<meta property="article:tag" content="php">
-<meta property="article:tag" content="CI">
-<meta property="article:tag" content="mysql">
-<meta property="article:tag" content="mvc">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="anthusの学习屋" type="application/atom+xml">
@@ -166,482 +158,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CI_study" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      CI学习记录
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/04/17/ssrf-study/" class="archive-article-date">
+  	<time datetime="2020-04-17T12:03:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/04/17/ssrf-study/">ssrf复习笔记</a>
     </h1>
   
 
-        
-        <a href="/2020/04/02/CI_study/" class="archive-article-date">
-  	<time datetime="2020-04-02T08:22:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>兄弟连 CodeIgniter学习笔记   </p>
-<a id="more"></a>
-
-<ul>
-<li>为啥学习CI：    <ul>
-<li>学了那么久php，没深入了解过框架</li>
-<li>CI框架轻便，比较像原生的MVC，学起来应该容易 </li>
-</ul>
-</li>
-<li>学习资料：<ul>
-<li>兄弟连的CI视频 <em>视频有点老，但是新版综合中文手册敲一样</em></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
-<li><p>CI简介   </p>
-</li>
-<li><p>深入MVC设计模式    </p>
-</li>
-<li><p>CI中控制器与视图    </p>
-</li>
-<li><p>CI的超级对象    </p>
-</li>
-<li><p>数据库访问        </p>
-</li>
-<li><p>AR模型</p>
-</li>
-<li><p>如何扩展CI的控制器</p>
-</li>
-<li><p>模型</p>
-</li>
-<li><p>url相关函数</p>
-</li>
-<li><p>设置路由</p>
-</li>
-<li><p>分页</p>
-</li>
-<li><p>文件上传</p>
-</li>
-<li><p>Session</p>
-</li>
-<li><p>验证码</p>
-</li>
-<li><p>表单验证</p>
-</li>
-</ul>
-<h4 id="CI中的MVC"><a href="#CI中的MVC" class="headerlink" title="CI中的MVC"></a>CI中的MVC</h4><pre><code>访问url使用的是pathinfo
-
-入口文件.php/控制器/动作（方法）
-
-application目录中：
-    controllers 控制器
-    models 模型
-    views 视图
-
-默认控制器是welcome
-默认动作是index</code></pre><h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><pre><code>1.不需要加后缀
-2.文件名全部小写  例如 user.php
-3.所有的控制器，直接或间接继承自CI_Controller类
-4.控制器中，对动作（方法）要求：
-    public
-    不能以_开头
-5.与类名相同的，会被php当做构造方法，相当于__construct(){}</code></pre><h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><pre><code>1.在控制器中如何加载视图
-    $this-&gt;load&gt;view(视图);//直接写视图名字，不写拓展名，如果有子目录，则写上目录名
-    可以多次调用$this-&gt;load-&gt;view(视图);
-2.视图中，直接使用原生php代码
-3.推荐使用
-    &lt;?php foreach($list as $item):?&gt;
-    &lt;?=$item[&apos;name&apos;];?&gt;
-    &lt;?php endforeach;?&gt;</code></pre><h4 id="超级对象"><a href="#超级对象" class="headerlink" title="超级对象"></a>超级对象</h4><pre><code>当前的控制器对象
-提供了很多属性：
-    $this-&gt;load 
-        装载器类的实例 system/core/Loader.php
-        装载器类提供方法：
-        view()      装载视图
-        vars()      分配变量到视图
-        database()  装载数据库操作对象
-        model()     装载模型对象
-        helper()    
-
-    $this-&gt;uri
-        是CI_URI类的实例 system/core/URI.php
-        CI_URI类提供方法：
-        segment(n)  用于获取url中的第n个参数（值）
-            传统的：入口文件.php/控制器/动作/参数1/值1/参数2/值2
-            入口文件.php/控制器/动作/值1/值2
-            echo $this-&gt;uri-&gt;segment(3);//值1
-            echo $this-&gt;uri-&gt;segment(4);//值2
-
-            //index.php/控制器/index/6
-            public function index($p=0){
-                echo $p;//输出6
-            }
-
-    $this-&gt;input
-        输入类
-        是CI_Input类的实例 system/core/Input.php
-        CI_Input类提供方法：
-        $this-&gt;input-&gt;post(&apos;username&apos;);          //$_POST[&apos;username&apos;]
-        $this-&gt;input-&gt;server(&apos;DUCUMENT_ROOT&apos;);   //$_SERVER[&apos;DOCUMENT_ROOT&apos;]
-
-在视图中，直接用$this来访问超级对象中的属性</code></pre><h4 id="数据库访问"><a href="#数据库访问" class="headerlink" title="数据库访问"></a>数据库访问</h4><pre><code>修改配置文件
-application/config/database.php
-
-将数据库访问对象装载到超级对象的属性中 $this-&gt;db
-$this-&gt;load-&gt;database();
-
-$this-&gt;db-&gt;query($sql);//返回对象
-$res-&gt;result();//返回数组，数组中是一个一个的对象
-$res-&gt;result_array();//返回二维数组，里面是关联数组
-$res-&gt;row();//返回第一条数据，直接是一个对象
-
-参数绑定
-$sql = &quot;select * from blog_user where name=?&quot;;
-$this-&gt;db-&gt;query($sql,$name);//如果有多个问号时，需要传入一个索引数组$data[0]=&apos;&apos;;$data[1]=&apos;&apos;;
-
-表前缀
-$db[&apos;default&apos;][&apos;dbprefix&apos;] = &apos;blog_&apos;;
-$db[&apos;default&apos;][&apos;swap_pre&apos;] = &apos;blog_&apos;;
-配置为一样，代码中直接硬编码表前缀，如果以后项目数据库表前缀发生变化，
-只需修改$db[&apos;default&apos;][&apos;dbprefix&apos;] = &apos;new_&apos;;代码中的blog_会自动替换成new_
-
-db的自动加载
-    application/config/autoload.php
-    $autoload[&apos;libraries&apos;] = array(&apos;database&apos;);
-    不需要：$this-&gt;load-&gt;database();
-
-自增id
-$this-&gt;db-&gt;insert_id();
-受影响行数
-$this-&gt;db-&gt;affected_rows();</code></pre><h4 id="Active-Record"><a href="#Active-Record" class="headerlink" title="Active Record"></a>Active Record</h4><pre><code>1.application/config/database.php
-    $query_builder = TRUE;
-2.application/config/autoload.php
-    $autoload[&apos;libraries&apos;] = array(&apos;database&apos;);
-3.在配置文件中，配置标签最后，会自动添加
-
-    $res=$this-&gt;db-&gt;get(&apos;表名&apos;);//返回结果集对象
-    $res=$res-&gt;result();
-
-    $bool=$this-&gt;db-&gt;insert(&apos;表名&apos;,关联数组);
-
-    $bool=$this-&gt;db-&gt;update(&apos;表名&apos;,关联数组,条件);
-
-    $bool=$this-&gt;db-&gt;delete(&apos;表名&apos;,条件);
-
-    //select id,name from tableName where id&gt;=3 order by id desc limit 2,3 
-    $res=$this-&gt;db-&gt;select(&apos;id,name&apos;)
-        -&gt;from(&apos;user&apos;)
-        -&gt;where(&apos;id &gt;=&apos;,3)
-        -&gt;limit(3,2)//反向，跳过2条，取出3条数据
-        -&gt;order_by(&apos;id desc &apos;)
-        -&gt;get();
-    //显示最近一条SQL
-        echo $this-&gt;db-&gt;last_query();
-
-    //where
-    //$res=$this-&gt;db-&gt;where(&apos;name&apos;,&apos;lili&apos;)-&gt;get(&apos;user&apos;);
-    //$res=$this-&gt;db-&gt;where(&apos;name !=&apos;,&apos;lili&apos;)-&gt;get(&apos;user&apos;);
-    //$res=$this-&gt;db-&gt;where(array(&apos;name&apos;=&gt;&apos;lili&apos;,&apos;id &gt;&apos;=&gt;2))-&gt;get(&apos;user&apos;);
-
-    复杂的查询，请用$this-&gt;db-&gt;query($sql,$data);//使用问号绑定参数</code></pre><h4 id="扩展CI控制器"><a href="#扩展CI控制器" class="headerlink" title="扩展CI控制器"></a>扩展CI控制器</h4><pre><code>application/core/MY_Controller.php
-控制器就可以继承MY_Controller
-
-application/config/config.php修改前缀
-$config[&apos;subclass_prefix&apos;] = &apos;MY_&apos;;</code></pre><h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><pre><code>继承自CI_Model
-在模型中，可以直接使用超级对象中的属性
-文件名，全小写
-类名首字母大写
-建议使用_model作为后缀，防止和控制器类名冲突</code></pre><h4 id="url相关函数"><a href="#url相关函数" class="headerlink" title="url相关函数"></a>url相关函数</h4><pre><code>$this-&gt;load-&gt;helper(&apos;url&apos;);//可以根据需要配置自动加载
-//application/config/autoload.php 
-//$autoload[&apos;helper&apos;] = array(&apos;url&apos;);
-
-site_url(&apos;控制器/方法&apos;);
-base_url();</code></pre><h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><pre><code>application/config/routes.php
-//默认控制器
-$route[&apos;default_controller&apos;] = &apos;welcome&apos;;
-
-//http://127.0.0.1/ci/index.php/news/20200101/27.html
-$route[&apos;news/[\d]{8}/(\d+)\.html&apos;] = &apos;article/show/$1&apos;;
-
-隐藏入口文件
-    开启apache的rewrite模块，在httpd.conf文件中
-    LoadModule rewrite_module modules/mod_rewrite.so
-    重启apache
-    在入口文件同级目录中，放入一个.htaccess
-    内容如下
-        &lt;IfModule mod_rewrite.c&gt;
-            RewriteEngine on
-            RewriteCond %{REQUEST_FILENAME} !-d
-            RewriteCond %{REQUEST_FILENAME} !-f
-            RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]
-        &lt;/IfModule&gt;
-    在config.php中修改$config[&apos;index_page&apos;] = &apos;&apos;;//否则site_url()依然会带上入口文件</code></pre><h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><pre><code>//装载类文件
-$this-&gt;load-&gt;library(&apos;pagination&apos;);
-$page_size=10;
-$this-&gt;load-&gt;helper(&apos;url&apos;);
-
-$config[&apos;base_url&apos;] = site_url(&apos;user/test&apos;);
-$config[&apos;total_rows&apos;] = 100;
-$config[&apos;per_page&apos;] = $page_size;
-$config[&apos;first_link&apos;] = &apos;首页&apos;;
-$config[&apos;next_link&apos;] = &apos;下一页&apos;;
-$this-&gt;pagination-&gt;initialize($config);
-
-$offset=intval($this-&gt;uri-&gt;segment(3));
-$sql = &quot;select * from blog_user limit $offset,$page_size&quot;;
-echo $sql;
-
-$data[&apos;links&apos;] = $this-&gt;pagination-&gt;create_links();
-$this-&gt;load-&gt;view(&apos;user/test&apos;,$data);</code></pre><h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><pre><code>手动创建好上传目录
-
-&lt;form action=&quot;&lt;?php echo site_url(&apos;user/upload&apos;)?&gt;&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;
-    &lt;input type=&quot;file&quot; name=&quot;pic&quot;/&gt;
-    &lt;input type=&quot;submit&quot; value=&quot;上传&quot; /&gt;
-&lt;/form&gt;
-
-//上传目录需要手工创建
-$config[&apos;upload_path&apos;] = &apos;./uploads/&apos;;
-//允许
-$config[&apos;allowed_types&apos;] = &apos;gif|png|jpg|jpeg&apos;;
-//生成文件名
-$config[&apos;file_name&apos;] = rand(1000,5000).uniqid();
-$this-&gt;load-&gt;library(&apos;upload&apos;,$config);
-$this-&gt;upload-&gt;do_upload(&apos;pic&apos;);
-var_dump($this-&gt;upload-&gt;data());
-//获取上传后的数据
-$data = $this-&gt;upload-&gt;data();
-echo $data[&apos;file_name&apos;];</code></pre><h4 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h4><pre><code>public function login(){
-    $this-&gt;load-&gt;library(&apos;session&apos;);
-
-    $user= array(
-        &apos;id&apos;=&gt;3,
-        &apos;name&apos;=&gt;&apos;jack&apos;
-    );
-
-    //session_start();
-    //$_SESSION[&apos;user&apos;]=$user;
-    $this-&gt;session-&gt;set_userdata(&apos;user&apos;,$user);
-
-    //不在这里获取刚放的数据
-    //只有在新加载或跳转到别的url中，才能获取到
-
-    //一次性的数据，只能读取一次
-    $this-&gt;session-&gt;set_flashdata(&apos;test&apos;,&apos;aaaaaaaaaaaaaaaa&apos;);
-
-}
-
-public function show_session(){
-    $this-&gt;load-&gt;library(&apos;session&apos;);
-    //取CI session中的数据
-    $user = $this-&gt;session-&gt;userdata(&apos;user&apos;);
-    var_dump($user);
-    //下次刷新，就没有了
-    $test = $this-&gt;session-&gt;flashdata(&apos;test&apos;);
-    echo $test;
-}</code></pre><h4 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h4><pre><code>$this-&gt;load-&gt;helper(&apos;captcha&apos;);
-$this-&gt;load-&gt;helper(&apos;url&apos;);
-$config = array(
-    &apos;img_path&apos; =&gt; &apos;./captcha/&apos;, //此目录需要手动创建
-    &apos;img_url&apos;=&gt; base_url().&apos;captcha/&apos;,
-    &apos;img_width&apos;=&gt;&apos;100&apos;,
-    &apos;img_height&apos; =&gt;30,
-    &apos;expiration&apos; =&gt;60*10, //过期时间，会自动删除图片
-
-);
-$cap = create_captcha($config);
-$this-&gt;load-&gt;view(&apos;user/test2&apos;,array(&apos;cap&apos;=&gt;$cap[&apos;image&apos;]));
-
-session_start();
-$_SESSION[&apos;cap&apos;]=$cap[&apos;word&apos;];
-//验证时，对比$_SESSION[&apos;cap&apos;]</code></pre><h4 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h4><pre><code>    $this-&gt;load-&gt;helper(&apos;url&apos;);
-    $this-&gt;load-&gt;library(&apos;form_validation&apos;);
-    $this-&gt;form_validation-&gt;set_rules(&apos;name&apos;,&apos;用户名&apos;,&apos;required&apos;);
-    $this-&gt;form_validation-&gt;set_rules(&apos;email&apos;,&apos;邮箱&apos;,&apos;valid_email&apos;);
-    $bool = $this-&gt;form_validation-&gt;run();
-
-    if($bool){
-        //调用模型保存到数据库
-    }else{
-        //显示错误信息
-        $this-&gt;load-&gt;view(&apos;user/add&apos;);
-    }
-
-
-&lt;?php echo validation_errors();?&gt;
-&lt;form action=&quot;&lt;?php echo site_url(&apos;user/insert&apos;);?&gt;&quot; method=&quot;post&quot;&gt;
-    name &lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo set_value(&apos;name&apos;)?&gt;&quot;&gt;
-    &lt;?php echo form_error(&apos;name&apos;,&apos;&lt;span&gt;&apos;.&apos;&lt;/span&gt;&apos;);?&gt;
-    &lt;br&gt;
-    password &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;
-    email &lt;input type=&quot;text&quot; name=&quot;email&quot; value=&quot;&lt;?php echo set_value(&apos;email&apos;)?&gt;&quot;&gt;
-    &lt;?php echo form_error(&apos;email&apos;);?&gt;
-    &lt;br&gt;
-    &lt;input type=&quot;submit&quot; name=&quot;submit&quot;/&gt;
-&lt;/form&gt;</code></pre>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mvc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ssrf</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/02/CI_study/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/04/16/csrf%E2%80%94-study/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          csrf复习笔记
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/03/21/git-hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">git+hexo搭建博客记录</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -664,9 +242,9 @@ $_SESSION[&apos;cap&apos;]=$cap[&apos;word&apos;];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
